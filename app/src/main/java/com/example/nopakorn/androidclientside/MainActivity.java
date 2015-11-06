@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editTextAddress = (EditText)findViewById(R.id.address);
-        editTextPort = (EditText)findViewById(R.id.port);
+//        editTextAddress = (EditText)findViewById(R.id.address);
+//        editTextPort = (EditText)findViewById(R.id.port);
         buttonConnect = (Button)findViewById(R.id.connect);
         buttonConnect2 = (Button) findViewById(R.id.connect2);
         buttonConnect3 = (Button) findViewById(R.id.connect3);
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 textResponse.setText("");
             }
         });
-        textResponse.setText(getIpAddress());
+        textResponse.setText("CONNECT TO "+getIpAddress());
 
     }
 
@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
         String btnName;
         int dstPort;
         String response = "res: ";
-        //Socket socket = null;
-
         MyClientTask(String addr, int port, String btn){
             dstAddress = addr;
             dstPort = port;

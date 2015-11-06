@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidClientSide</string>
+    <string name="a_view">A View</string>
 </resources>

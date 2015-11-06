@@ -34,14 +34,22 @@
         android:layout_alignParentStart="true" />
 
     <Button
+        android:id="@+id/batteryStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Battery Start"
+        android:layout_below="@+id/connect3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
         android:id="@+id/clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Clear"
-        android:layout_below="@+id/connect3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/response"
         android:layout_width="wrap_content"

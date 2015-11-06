@@ -29,24 +29,24 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textResponse;
     EditText editTextAddress, editTextPort;
-    Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3;
+    Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3, buttonBatteryStart;
 
     String SocketServerPORT = "8080";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        editTextAddress = (EditText)findViewById(R.id.address);
-//        editTextPort = (EditText)findViewById(R.id.port);
         buttonConnect = (Button)findViewById(R.id.connect);
         buttonConnect2 = (Button) findViewById(R.id.connect2);
         buttonConnect3 = (Button) findViewById(R.id.connect3);
+        buttonBatteryStart = (Button) findViewById(R.id.batteryStart);
         buttonClear = (Button)findViewById(R.id.clear);
         textResponse = (TextView)findViewById(R.id.response);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
         buttonConnect2.setOnClickListener(buttonConnectOnClickListener2);
         buttonConnect3.setOnClickListener(buttonConnectOnClickListener3);
+        buttonBatteryStart.setOnClickListener(buttonConnectOnClickListener4);
         buttonClear.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -86,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "b";
+                    MyClientTask myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonConnectOnClickListener4 =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "batteryStart";
                     MyClientTask myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};

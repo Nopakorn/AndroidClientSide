@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //myClientTask.cancel(true);
         Log.d("Client","on destroy: cancel async task");
         super.onDestroy();
     }
@@ -108,13 +107,13 @@ public class MainActivity extends AppCompatActivity {
                     myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
+
     public class MyClientTask extends AsyncTask<Void, Void, Void> {
 
         String dstAddress;
         String btnName;
         int dstPort;
         String response = "response: ";
-        String receive = "receive..";
         Socket socket = null;
         MyClientTask(String addr, int port, String btn){
             dstAddress = addr;
@@ -135,30 +134,13 @@ public class MainActivity extends AppCompatActivity {
                 printStream.print(msgButton);
                 socket.shutdownOutput();
                 //TODO: receive data from server
-//                InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
-//                BufferedReader reader = new BufferedReader(streamReader);
-//                //receive = reader.readLine();
-//                Log.d("Client","Start get input");
-//                while (true) {
-//                    final String line = reader.readLine();
-//                    Log.d("Client", "Receive msg: " + receive +": "+line);
-//                    if (line == null) break;
-//
-//
-//                }
-//                reader.close();
-
                 ByteArrayOutputStream byteArrayOutputStream =
                         new ByteArrayOutputStream(1024);
                 byte[] buffer = new byte[1024];
 
                 int bytesRead;
                 InputStream inputStream = socket.getInputStream();
-
-    /*
-     * notice:
-     * inputStream.read() will block if no data return
-     */         Log.d("Client","Start receive");
+                Log.d("Client","Start receive");
                 while ((bytesRead = inputStream.read(buffer)) != -1){
                     byteArrayOutputStream.write(buffer, 0, bytesRead);
                     response += byteArrayOutputStream.toString("UTF-8");
@@ -188,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-//            response += receive;
             textResponse.setText(response);
             super.onPostExecute(result);
         }

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView textResponse;
     EditText editTextAddress, editTextPort;
-    Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3, buttonBatteryStart;
+    Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
     ServerSocket serverSocket;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect = (Button)findViewById(R.id.connect);
         buttonConnect2 = (Button) findViewById(R.id.connect2);
         buttonConnect3 = (Button) findViewById(R.id.connect3);
+        buttonConnect4 = (Button) findViewById(R.id.connect4);
         buttonBatteryStart = (Button) findViewById(R.id.batteryStart);
         buttonClear = (Button)findViewById(R.id.clear);
         textResponse = (TextView)findViewById(R.id.response);
@@ -52,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
         buttonConnect2.setOnClickListener(buttonConnectOnClickListener2);
         buttonConnect3.setOnClickListener(buttonConnectOnClickListener3);
-        buttonBatteryStart.setOnClickListener(buttonConnectOnClickListener4);
+        buttonConnect4.setOnClickListener(buttonConnectOnClickListener4);
+        buttonBatteryStart.setOnClickListener(buttonConnectOnClickListenerStart);
         buttonClear.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -75,30 +77,39 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "a";
+                    String btn_name = "batt1";
                     myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
 
-    OnClickListener buttonConnectOnClickListener3 =
-            new OnClickListener(){
-
-                @Override
-                public void onClick(View arg0) {
-                    String btn_name = "c";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
-                    myClientTask.execute();
-                }};
     OnClickListener buttonConnectOnClickListener2 =
             new OnClickListener(){
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "b";
+                    String btn_name = "batt2";
+                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonConnectOnClickListener3 =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "batt3";
                     myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
     OnClickListener buttonConnectOnClickListener4 =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "batt4";
+                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonConnectOnClickListenerStart =
             new OnClickListener(){
 
                 @Override

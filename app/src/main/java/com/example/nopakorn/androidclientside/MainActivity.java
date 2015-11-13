@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d("Client","on destroy: cancel async task");
         super.onDestroy();
     }
 
@@ -139,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
             String msgButton = btnName;
             try {
                 socket = new Socket(dstAddress, dstPort);
-                //TODO: sending data to server
+                //TODO Sending data to server
                 outputStream = socket.getOutputStream();
                 PrintStream printStream = new PrintStream(outputStream);
                 printStream.print(msgButton);
                 socket.shutdownOutput();
-                //TODO: receive data from server
+                //TODO Receive data from server
                 ByteArrayOutputStream byteArrayOutputStream =
                         new ByteArrayOutputStream(1024);
                 byte[] buffer = new byte[1024];

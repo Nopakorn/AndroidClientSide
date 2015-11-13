@@ -33,11 +33,10 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView textResponse;
-    EditText editTextAddress, editTextPort;
     Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
-    ServerSocket serverSocket;
+    String serverSocket = "192.168.1.54";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +54,9 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect3.setOnClickListener(buttonConnectOnClickListener3);
         buttonConnect4.setOnClickListener(buttonConnectOnClickListener4);
         buttonBatteryStart.setOnClickListener(buttonConnectOnClickListenerStart);
-        buttonClear.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                textResponse.setText("");
-            }
-        });
-        textResponse.setText("CONNECT TO "+getIpAddress());
+
+        textResponse.setText("CONNECT TO "+serverSocket);
 
     }
 
@@ -77,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "batt1";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
 
@@ -87,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "batt2";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
     OnClickListener buttonConnectOnClickListener3 =
@@ -96,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "batt3";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
     OnClickListener buttonConnectOnClickListener4 =
@@ -105,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "batt4";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
     OnClickListener buttonConnectOnClickListenerStart =
@@ -114,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "batteryStart";
-                    myClientTask = new MyClientTask("192.168.1.54", Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
 

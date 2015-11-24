@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect3 = (Button) findViewById(R.id.connect3);
         buttonConnect4 = (Button) findViewById(R.id.connect4);
         buttonBatteryStart = (Button) findViewById(R.id.batteryStart);
-        buttonClear = (Button)findViewById(R.id.clear);
+
         textResponse = (TextView)findViewById(R.id.response);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);

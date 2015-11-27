@@ -33,7 +33,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView textResponse;
-    Button buttonConnect, buttonClear, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
+    Button buttonConnect, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
+    Button opening, ending, warning, ecobar, fuel;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
     String serverSocket = "192.168.1.54";
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect4 = (Button) findViewById(R.id.connect4);
         buttonBatteryStart = (Button) findViewById(R.id.batteryStart);
 
+        opening = (Button)findViewById(R.id.opening);
+        ending = (Button)findViewById(R.id.ending);
+        warning = (Button)findViewById(R.id.warning);
+        ecobar = (Button)findViewById(R.id.ecobar);
+        fuel = (Button)findViewById(R.id.fuel);
+
         textResponse = (TextView)findViewById(R.id.response);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
@@ -54,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
         buttonConnect3.setOnClickListener(buttonConnectOnClickListener3);
         buttonConnect4.setOnClickListener(buttonConnectOnClickListener4);
         buttonBatteryStart.setOnClickListener(buttonConnectOnClickListenerStart);
+
+        opening.setOnClickListener(buttonOpening);
+        ending.setOnClickListener(buttonEnding);
+        warning.setOnClickListener(buttonWarning);
+        ecobar.setOnClickListener(buttonEcobar);
+        fuel.setOnClickListener(buttonFuel);
+
 
 
         textResponse.setText("CONNECT TO "+serverSocket);
@@ -64,6 +78,52 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    OnClickListener buttonOpening =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "opening";
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonEnding =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "ending";
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonWarning =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "warning";
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonFuel =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "fuel";
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
+    OnClickListener buttonEcobar =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String btn_name = "eco_bar";
+                    myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
+                    myClientTask.execute();
+                }};
 
     OnClickListener buttonConnectOnClickListener =
             new OnClickListener(){
@@ -107,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batteryStart";
+                    String btn_name = "batt5";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};

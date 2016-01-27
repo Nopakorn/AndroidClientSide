@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     Button opening, ending, warning, ecobar, fuel;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
-    String serverSocket = "192.168.1.54";
+    String serverSocket = "192.168.1.63";
     ImageView screenPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

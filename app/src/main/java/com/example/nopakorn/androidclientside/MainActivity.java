@@ -38,6 +38,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     EditText ipEditText;
     Button buttonConnect, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
     Button opening, ending, warning, ecobar, fuel;
-    Button ipConfig;
+    Button ipConfig, openConfig, cancelConfig;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
     public String serverSocket = "192.168.43.121";
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         textResponse = (TextView)findViewById(R.id.response);
         ipEditText = (EditText)findViewById(R.id.ipEditText);
         ipConfig = (Button)findViewById(R.id.ipConfigButton);
+        openConfig = (Button)findViewById(R.id.ipOpenButton);
+        cancelConfig = (Button)findViewById(R.id.ipCancelButton);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
         buttonConnect2.setOnClickListener(buttonConnectOnClickListener2);
@@ -97,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         textResponse.setText("CONNECT TO "+serverSocket);
         ipConfig.setOnClickListener(buttonIpConfig);
+        openConfig.setOnClickListener(buttonOpenConfig);
+        cancelConfig.setOnClickListener(buttonCancelConfig);
     }
 
     @Override
@@ -106,11 +111,36 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
-                INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        return true;
+        if(ipEditText.getVisibility() == View.VISIBLE){
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                    INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            return true;
+        }else{
+            return false;
+        }
+
     }
+    OnClickListener buttonCancelConfig =
+            new OnClickListener(){
+                @Override
+                public void onClick(View arg0) {
+                    ipEditText.setVisibility(View.INVISIBLE);
+                    ipConfig.setVisibility(View.INVISIBLE);
+                    cancelConfig.setVisibility(View.INVISIBLE);
+                    openConfig.setVisibility(View.VISIBLE);
+                }};
+
+    OnClickListener buttonOpenConfig =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    ipEditText.setVisibility(View.VISIBLE);
+                    ipConfig.setVisibility(View.VISIBLE);
+                    cancelConfig.setVisibility(View.VISIBLE);
+                    openConfig.setVisibility(View.INVISIBLE);
+                }};
 
     OnClickListener buttonIpConfig =
             new OnClickListener(){
@@ -118,10 +148,20 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View arg0) {
                     String ipText = ipEditText.getText().toString();
-                    serverSocket = ipText;
+                    if(ipText.matches("")){
+                        Log.d("ip", "You did not type ip address");
+                        return;
+                    }else{
+                        serverSocket = ipText;
+                        ipEditText.setText("");
+                    }
+
                     textResponse.setText("CONNECT TO "+serverSocket+"#");
-                    ipEditText.setText("");
-                    Log.d("ip","getting ip from text: "+ipText);
+
+                    ipEditText.setVisibility(View.INVISIBLE);
+                    cancelConfig.setVisibility(View.INVISIBLE);
+                    ipConfig.setVisibility(View.INVISIBLE);
+                    openConfig.setVisibility(View.VISIBLE);
                 }};
     OnClickListener buttonOpening =
             new OnClickListener(){

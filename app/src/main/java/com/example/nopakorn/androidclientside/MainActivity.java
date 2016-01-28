@@ -1,5 +1,6 @@
 package com.example.nopakorn.androidclientside;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,8 +30,10 @@ import java.util.Enumeration;
 import android.os.AsyncTask;
 import android.app.Activity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
     public static final String SCREEN_BATT5 = "batt5";
 
     TextView textResponse;
+    EditText ipEditText;
     Button buttonConnect, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
     Button opening, ending, warning, ecobar, fuel;
+    Button ipConfig;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
-    String serverSocket = "192.168.1.63";
+    public String serverSocket = "192.168.43.121";
     ImageView screenPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         fuel = (Button)findViewById(R.id.fuel);
 
         textResponse = (TextView)findViewById(R.id.response);
+        ipEditText = (EditText)findViewById(R.id.ipEditText);
+        ipConfig = (Button)findViewById(R.id.ipConfigButton);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
         buttonConnect2.setOnClickListener(buttonConnectOnClickListener2);
@@ -89,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         screenPre = (ImageView)findViewById(R.id.screenPreview);
 
         textResponse.setText("CONNECT TO "+serverSocket);
-
+        ipConfig.setOnClickListener(buttonIpConfig);
     }
 
     @Override
@@ -97,12 +104,32 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.
+                INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        return true;
+    }
+
+    OnClickListener buttonIpConfig =
+            new OnClickListener(){
+
+                @Override
+                public void onClick(View arg0) {
+                    String ipText = ipEditText.getText().toString();
+                    serverSocket = ipText;
+                    textResponse.setText("CONNECT TO "+serverSocket+"#");
+                    ipEditText.setText("");
+                    Log.d("ip","getting ip from text: "+ipText);
+                }};
     OnClickListener buttonOpening =
             new OnClickListener(){
 
                 @Override
                 public void onClick(View arg0) {
                     String btn_name = "opening";
+                    Log.d("ip","opening: "+serverSocket);
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};

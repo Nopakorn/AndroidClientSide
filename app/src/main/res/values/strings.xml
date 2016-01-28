@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidClientSide</string>
+    <string name="app_name">MIDControl</string>
     <string name="a_view">A View</string>
     <string name="response">Response</string>
 </resources>

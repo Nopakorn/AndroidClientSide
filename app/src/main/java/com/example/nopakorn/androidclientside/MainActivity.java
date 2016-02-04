@@ -4,31 +4,23 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 import android.os.AsyncTask;
-import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,26 +30,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String SCREEN_OPENING = "opening";
-    public static final String SCREEN_FUEL = "fuel";
-    public static final String SCREEN_WARNING = "warning";
-    public static final String SCREEN_ECO = "eco_bar";
-    public static final String SCREEN_ENDING = "ending";
-    public static final String SCREEN_BATT1 = "batt1";
-    public static final String SCREEN_BATT2 = "batt2";
-    public static final String SCREEN_BATT3 = "batt3";
-    public static final String SCREEN_BATT4 = "batt4";
-    public static final String SCREEN_BATT5 = "batt5";
+    public static final String SCREEN_BATT1 = "BATT 1";
+    public static final String SCREEN_BATT2 = "BATT 2";
+    public static final String SCREEN_BATT3 = "BATT 3";
+    public static final String SCREEN_BATT4 = "BATT 4";
+    public static final String SCREEN_BATT5 = "BATT 5";
+    public static final String SCREEN_OPENING = "OPENING";
+    public static final String SCREEN_ENDING = "ENDING";
+    public static final String SCREEN_FUEL = "FUEL";
+    public static final String SCREEN_WARNING = "WARNING";
+    public static final String SCREEN_ECO = "ECO";
 
     TextView textResponse;
+    TextView desciption;
     EditText ipEditText;
     Button buttonConnect, buttonConnect2, buttonConnect3, buttonConnect4, buttonBatteryStart;
     Button opening, ending, warning, ecobar, fuel;
-    Button ipConfig, openConfig, cancelConfig;
+    Button okConfig, openConfig, cancelConfig;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
     public String serverSocket = "192.168.43.121";
@@ -79,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
         fuel = (Button)findViewById(R.id.fuel);
 
         textResponse = (TextView)findViewById(R.id.response);
+        desciption = (TextView)findViewById(R.id.description);
         ipEditText = (EditText)findViewById(R.id.ipEditText);
-        ipConfig = (Button)findViewById(R.id.ipConfigButton);
-        openConfig = (Button)findViewById(R.id.ipOpenButton);
+        okConfig = (Button)findViewById(R.id.ipOkButton);
+        openConfig = (Button)findViewById(R.id.ipConfigButton);
         cancelConfig = (Button)findViewById(R.id.ipCancelButton);
 
         buttonConnect.setOnClickListener(buttonConnectOnClickListener);
@@ -98,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
         screenPre = (ImageView)findViewById(R.id.screenPreview);
 
-        textResponse.setText("CONNECT TO "+serverSocket);
-        ipConfig.setOnClickListener(buttonIpConfig);
-        openConfig.setOnClickListener(buttonOpenConfig);
-        cancelConfig.setOnClickListener(buttonCancelConfig);
+        textResponse.setText("CONNECT TO ");
+        desciption.setText("\t\t\t"+serverSocket);
+        okConfig.setOnClickListener(buttonIpOkConfig);
+        openConfig.setOnClickListener(buttonOpenIpConfig);
+        cancelConfig.setOnClickListener(buttonIpCancelConfig);
     }
 
     @Override
@@ -121,28 +115,28 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    OnClickListener buttonCancelConfig =
+    OnClickListener buttonIpCancelConfig =
             new OnClickListener(){
                 @Override
                 public void onClick(View arg0) {
                     ipEditText.setVisibility(View.INVISIBLE);
-                    ipConfig.setVisibility(View.INVISIBLE);
+                    okConfig.setVisibility(View.INVISIBLE);
                     cancelConfig.setVisibility(View.INVISIBLE);
                     openConfig.setVisibility(View.VISIBLE);
                 }};
 
-    OnClickListener buttonOpenConfig =
+    OnClickListener buttonOpenIpConfig =
             new OnClickListener(){
 
                 @Override
                 public void onClick(View arg0) {
                     ipEditText.setVisibility(View.VISIBLE);
-                    ipConfig.setVisibility(View.VISIBLE);
+                    okConfig.setVisibility(View.VISIBLE);
                     cancelConfig.setVisibility(View.VISIBLE);
                     openConfig.setVisibility(View.INVISIBLE);
                 }};
 
-    OnClickListener buttonIpConfig =
+    OnClickListener buttonIpOkConfig =
             new OnClickListener(){
 
                 @Override
@@ -150,17 +144,18 @@ public class MainActivity extends AppCompatActivity {
                     String ipText = ipEditText.getText().toString();
                     if(ipText.matches("")){
                         Log.d("ip", "You did not type ip address");
+                        desciption.setText("You did not type ip address");
                         return;
                     }else{
                         serverSocket = ipText;
                         ipEditText.setText("");
                     }
 
-                    textResponse.setText("CONNECT TO "+serverSocket+"#");
-
+                    textResponse.setText("CONNECT TO ");
+                    desciption.setText("\t\t\t"+serverSocket);
                     ipEditText.setVisibility(View.INVISIBLE);
                     cancelConfig.setVisibility(View.INVISIBLE);
-                    ipConfig.setVisibility(View.INVISIBLE);
+                    okConfig.setVisibility(View.INVISIBLE);
                     openConfig.setVisibility(View.VISIBLE);
                 }};
     OnClickListener buttonOpening =
@@ -168,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "opening";
+                    String btn_name = "OPENING";
                     Log.d("ip","opening: "+serverSocket);
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
@@ -178,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "ending";
+                    String btn_name = "ENDING";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -187,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "warning";
+                    String btn_name = "WARNING";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -196,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "fuel";
+                    String btn_name = "FUEL";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -205,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "eco_bar";
+                    String btn_name = "ECO";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -215,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batt1";
+                    String btn_name = "BATT 1";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -225,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batt2";
+                    String btn_name = "BATT 2";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -234,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batt3";
+                    String btn_name = "BATT 3";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -243,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batt4";
+                    String btn_name = "BATT 4";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
                 }};
@@ -252,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View arg0) {
-                    String btn_name = "batt5";
+                    String btn_name = "BATT 5";
                     myClientTask = new MyClientTask(serverSocket, Integer.parseInt(SocketServerPORT), btn_name);
                     myClientTask.execute();
 
@@ -264,6 +259,7 @@ public class MainActivity extends AppCompatActivity {
         String btnName;
         int dstPort;
         String response = "";
+        String errorDescription = "";
         Socket socket = null;
         MyClientTask(String addr, int port, String btn){
             dstAddress = addr;
@@ -277,7 +273,9 @@ public class MainActivity extends AppCompatActivity {
             OutputStream outputStream;
             String msgButton = btnName;
             try {
-                socket = new Socket(dstAddress, dstPort);
+                socket = new Socket();
+                //socket.setSoTimeout(5000);
+                socket.connect(new InetSocketAddress(dstAddress, dstPort));
                 //TODO Sending data to server
                 outputStream = socket.getOutputStream();
                 PrintStream printStream = new PrintStream(outputStream);
@@ -302,11 +300,13 @@ public class MainActivity extends AppCompatActivity {
             } catch (UnknownHostException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                response = "UnknownHostException: " + e.toString();
+                response += "ERROR";
+                errorDescription = "UnknownHostException: " + e.toString();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                response = "IOException: " + e.toString();
+                response += "ERROR";
+                errorDescription = "IOException: " + e.toString();
             }finally{
                 if(socket != null){
                     try {
@@ -323,6 +323,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             textResponse.setText(response);
+            desciption.setText(errorDescription);
+
             screenPreview(response);
 
             super.onPostExecute(result);
@@ -338,43 +340,53 @@ public class MainActivity extends AppCompatActivity {
     public void screenPreview(String screen) {
         switch (screen){
             case SCREEN_OPENING:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_opening, 108, 192));
+                desciption.setText("Opening screen (Welcome screen)");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.opening_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_FUEL:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_fuel, 108, 192));
+                desciption.setText("Sample screen (Fuel Consumption screen)");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.fuel_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_WARNING:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_warning, 108, 192));
+                desciption.setText("Sample screen (Master Warning screen)");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.warning_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ECO:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_eco, 108, 192));
+                desciption.setText("Sample screen (Eco mode screen) \n Use as main/common screen");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.eco_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ENDING:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_ending, 108, 192));
+                desciption.setText("Ending screen");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.end, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT1:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_batt1, 108, 192));
+                desciption.setText("");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt1_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT2:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_batt2, 108, 192));
+                desciption.setText("");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT3:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_batt3, 108, 192));
+                desciption.setText("");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT4:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_batt4, 108, 192));
+                desciption.setText("");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt4_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT5:
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.screen_batt5, 108, 192));
+                desciption.setText("");
+                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt5_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
         }

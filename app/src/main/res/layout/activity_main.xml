@@ -69,7 +69,7 @@
         android:text="BATTERY DIS"
         android:id="@+id/textBatteryDIS"
         android:layout_alignParentTop="true"
-        android:textAlignment="center"
+        android:gravity="center"
         android:background="#000000"
         android:textColor="#ffffff"
         android:textStyle="bold"
@@ -85,7 +85,7 @@
         android:layout_alignTop="@+id/textBatteryDIS"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textColor="#ffffff"
         android:background="#000000"
         android:textStyle="bold" />
@@ -151,75 +151,101 @@
         android:layout_alignStart="@+id/ecobar"
         android:background="#f24d4d" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        android:id="@+id/viewBg"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#bfbfbf"
+        android:layout_below="@+id/batteryStart"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_height="34dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Response"
         android:id="@+id/response"
-        android:textColor="#fadf58"
-        android:textAlignment="center"
-        android:layout_gravity="right"
+        android:textColor="#fcd80a"
+        android:gravity="center"
         android:layout_alignTop="@+id/screenPreview"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/ipEditText"
         android:layout_toRightOf="@+id/batteryStart"
-        android:layout_toEndOf="@+id/batteryStart" />
+        android:layout_toEndOf="@+id/batteryStart"
+        android:autoText="false"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="description"
+        android:id="@+id/description"
+        android:layout_below="@+id/response"
+        android:layout_alignLeft="@+id/response"
+        android:layout_alignStart="@+id/response"
+        android:layout_alignRight="@+id/response"
+        android:layout_alignEnd="@+id/response"
+        android:textColor="#2b2b2b"
+        android:maxLines="4"
+        android:textSize="14dp"
+        android:layout_above="@+id/ipOkButton"
+        android:autoText="false" />
 
     <ImageView
-        android:layout_width="108dp"
+        android:layout_width="128dp"
         android:layout_height="192dp"
         android:id="@+id/screenPreview"
         android:layout_gravity="left"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:src="@mipmap/screen_opening"
         android:visibility="invisible"
-        />
+        android:layout_below="@+id/batteryStart"
+        android:layout_toLeftOf="@+id/response"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp" />
 
     <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="28dp"
         android:id="@+id/ipEditText"
         android:textColor="#000000"
         android:background="#fcd80a"
-        android:layout_alignBottom="@+id/screenPreview"
-        android:layout_marginBottom="54dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="false"
         android:visibility="invisible"
-        android:layout_alignLeft="@+id/response" />
+        android:layout_alignBottom="@+id/description"
+        android:layout_alignRight="@+id/ipOkButton"
+        android:layout_alignEnd="@+id/ipOkButton"
+        android:layout_toRightOf="@+id/screenPreview"
+        android:layout_toEndOf="@+id/screenPreview" />
 
     <Button
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:id="@+id/ipConfigButton"
-        android:layout_alignBottom="@+id/screenPreview"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:visibility="invisible"/>
+        android:id="@+id/ipOkButton"
+        android:visibility="invisible"
+        android:layout_alignTop="@+id/ipConfigButton"
+        android:layout_alignRight="@+id/description"
+        android:layout_alignEnd="@+id/description" />
     <Button
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="IP Config"
-        android:id="@+id/ipOpenButton"
-        android:layout_alignBottom="@+id/screenPreview"
+        android:id="@+id/ipConfigButton"
+        android:visibility="visible"
+        android:layout_alignBottom="@+id/viewBg"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:visibility="visible"/>
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/ipCancelButton"
-        android:layout_alignParentBottom="true"
         android:visibility="invisible"
-        android:layout_toLeftOf="@+id/ipConfigButton"
-        android:layout_alignLeft="@+id/ipEditText"
-        android:layout_alignStart="@+id/ipEditText" />
+        android:layout_alignBottom="@+id/ipConfigButton"
+        android:layout_alignLeft="@+id/ending"
+        android:layout_alignStart="@+id/ending" />
 
 </RelativeLayout>

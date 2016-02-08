@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     Button okConfig, openConfig, cancelConfig;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
-    public String serverSocket = "192.168.43.121";
+    public String serverSocket = "192.168.1.63";
     ImageView screenPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         textResponse.setText("CONNECT TO ");
         desciption.setText("\t\t\t"+serverSocket);
+        Log.d("save", ""+serverSocket);
         okConfig.setOnClickListener(buttonIpOkConfig);
         openConfig.setOnClickListener(buttonOpenIpConfig);
         cancelConfig.setOnClickListener(buttonIpCancelConfig);
@@ -101,6 +102,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState (Bundle outState) {
+        Log.d("save","save serverIP");
+        outState.putString("IPAdress",serverSocket);
+    }
+
+    @Override
+    protected void onRestoreInstanceState (Bundle savedInstanceState) {
+        Log.d("save","restore serverIP");
+        serverSocket = savedInstanceState.getString("IPAdress");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("save", "save serverIP");
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("save", "restore serverIP");
+        serverSocket = "192.168.1.63";
     }
 
     @Override
@@ -365,27 +393,27 @@ public class MainActivity extends AppCompatActivity {
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT1:
-                desciption.setText("");
+                desciption.setText("Battery Normal Status");
                 screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt1_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT2:
-                desciption.setText("");
+                desciption.setText("Battery Charging Status (Normal)");
                 screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT3:
-                desciption.setText("");
+                desciption.setText("Charging Status (Abnormal)");
                 screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT4:
-                desciption.setText("");
+                desciption.setText("Battery Low Status (Abnormal)");
                 screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt4_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT5:
-                desciption.setText("");
+                desciption.setText("Battery Maintenance screen");
                 screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt5_new, 108, 192));
                 screenPre.setVisibility(View.VISIBLE);
                 break;

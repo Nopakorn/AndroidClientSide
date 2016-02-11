@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     OnClickListener buttonIpCancelConfig =
             new OnClickListener(){
                 @Override
@@ -303,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 socket = new Socket();
                 //socket.setSoTimeout(5000);
-                socket.connect(new InetSocketAddress(dstAddress, dstPort));
+                socket.connect(new InetSocketAddress(dstAddress, dstPort), 5000);
                 //TODO Sending data to server
                 outputStream = socket.getOutputStream();
                 PrintStream printStream = new PrintStream(outputStream);
@@ -369,52 +370,52 @@ public class MainActivity extends AppCompatActivity {
         switch (screen){
             case SCREEN_OPENING:
                 desciption.setText("Opening screen (Welcome screen)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.opening_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.opening_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_FUEL:
                 desciption.setText("Sample screen (Fuel Consumption screen)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.fuel_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.fuel_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_WARNING:
                 desciption.setText("Sample screen (Master Warning screen)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.warning_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.warning_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ECO:
                 desciption.setText("Sample screen (Eco mode screen) \n Use as main/common screen");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.eco_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ENDING:
                 desciption.setText("Ending screen");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.end, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.end));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT1:
                 desciption.setText("Battery Normal Status");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt1_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt1_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT2:
                 desciption.setText("Battery Charging Status (Normal)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT3:
                 desciption.setText("Charging Status (Abnormal)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt2_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT4:
                 desciption.setText("Battery Low Status (Abnormal)");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt4_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt4_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT5:
                 desciption.setText("Battery Maintenance screen");
-                screenPre.setImageBitmap(decodeBitmapFromResource(getResources(), R.mipmap.batt5_new, 108, 192));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt5_new));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
         }

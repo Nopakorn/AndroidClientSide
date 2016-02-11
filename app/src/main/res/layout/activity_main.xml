@@ -153,7 +153,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="220dp"
+        android:layout_height="230dp"
         android:id="@+id/viewBg"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -196,9 +196,10 @@
 
     <ImageView
         android:layout_width="128dp"
-        android:layout_height="192dp"
+        android:layout_height="210dp"
         android:id="@+id/screenPreview"
         android:layout_gravity="left"
+        android:scaleType="fitXY"
         android:src="@mipmap/screen_opening"
         android:visibility="invisible"
         android:layout_below="@+id/batteryStart"

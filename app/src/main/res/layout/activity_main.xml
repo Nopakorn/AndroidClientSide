@@ -200,7 +200,7 @@
         android:id="@+id/screenPreview"
         android:layout_gravity="left"
         android:scaleType="fitXY"
-        android:src="@mipmap/screen_opening"
+        android:src="@mipmap/opening_screen"
         android:visibility="invisible"
         android:layout_below="@+id/batteryStart"
         android:layout_toLeftOf="@+id/response"

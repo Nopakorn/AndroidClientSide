@@ -52,12 +52,22 @@ public class MainActivity extends AppCompatActivity {
     Button okConfig, openConfig, cancelConfig;
     private MyClientTask myClientTask;
     String SocketServerPORT = "8080";
-    public String serverSocket = "192.168.1.63";
+    public String serverSocket = "192.168.43.1";
     ImageView screenPre;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         buttonConnect = (Button)findViewById(R.id.connect);
         buttonConnect2 = (Button) findViewById(R.id.connect2);
         buttonConnect3 = (Button) findViewById(R.id.connect3);
@@ -107,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         Log.d("save","save serverIP");
-        outState.putString("IPAdress",serverSocket);
+        outState.putString("IPAdress", serverSocket);
     }
 
     @Override
@@ -119,16 +129,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("save", "save serverIP");
-
-
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        Log.d("k", "pause called");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("save", "restore serverIP");
-        serverSocket = "192.168.1.63";
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        Log.d("k", "resume called");
     }
 
     @Override
@@ -137,6 +160,14 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.
                     INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+            getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             return true;
         }else{
             return false;
@@ -370,52 +401,52 @@ public class MainActivity extends AppCompatActivity {
         switch (screen){
             case SCREEN_OPENING:
                 desciption.setText("Opening screen (Welcome screen)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.opening_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.opening_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_FUEL:
                 desciption.setText("Sample screen (Fuel Consumption screen)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.fuel_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.fuel_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_WARNING:
                 desciption.setText("Sample screen (Master Warning screen)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.warning_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.warning_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ECO:
                 desciption.setText("Sample screen (Eco mode screen) \n Use as main/common screen");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ENDING:
                 desciption.setText("Ending screen");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.end));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.ending_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT1:
                 desciption.setText("Battery Normal Status");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt1_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt1_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT2:
-                desciption.setText("Battery Charging Status (Normal)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_new));
+                desciption.setText("Battery Charging Status");
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_3_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT3:
-                desciption.setText("Charging Status (Abnormal)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_new));
+                desciption.setText("Common Display");
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT4:
-                desciption.setText("Battery Low Status (Abnormal)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt4_new));
+                desciption.setText("Battery Low Status & Abnormal");
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt4_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT5:
                 desciption.setText("Battery Maintenance screen");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt5_new));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt5_screen));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
         }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -103,11 +104,26 @@ public class MainActivity extends AppCompatActivity {
 
         textResponse.setText("CONNECT TO ");
         desciption.setText("\t\t\t"+serverSocket);
-        Log.d("save", ""+serverSocket);
+        Log.d("save", "" + serverSocket);
         okConfig.setOnClickListener(buttonIpOkConfig);
         openConfig.setOnClickListener(buttonOpenIpConfig);
         cancelConfig.setOnClickListener(buttonIpCancelConfig);
+
+//        ipEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (!hasFocus) {
+//                    hideKeyboard();
+//                }
+//            }
+//        });
     }
+
+//    private void hideKeyboard() {
+//        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(ipEditText.getWindowToken(), 0);
+//    }
 
     @Override
     protected void onDestroy() {
@@ -168,8 +184,10 @@ public class MainActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
             getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            Log.d("screen"," ip edit text visibility");
             return true;
         }else{
+            Log.d("screen","false");
             return false;
         }
 
@@ -334,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
             String msgButton = btnName;
             try {
                 socket = new Socket();
-                //socket.setSoTimeout(5000);
+                socket.setReuseAddress(true);
                 socket.connect(new InetSocketAddress(dstAddress, dstPort), 5000);
                 //TODO Sending data to server
                 outputStream = socket.getOutputStream();

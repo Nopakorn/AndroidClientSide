@@ -167,7 +167,7 @@
         android:layout_width="164dp"
         android:layout_height="34dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Response"
+        android:text="response"
         android:id="@+id/response"
         android:textColor="#fcd80a"
         android:gravity="center"

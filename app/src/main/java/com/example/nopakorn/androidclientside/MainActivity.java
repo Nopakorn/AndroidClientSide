@@ -424,12 +424,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SCREEN_FUEL:
                 desciption.setText("Sample screen (Fuel Consumption screen)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.fuel_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.fuel_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_WARNING:
                 desciption.setText("Sample screen (Master Warning screen)");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.warning_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.warning_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_ECO:
@@ -444,27 +444,27 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case SCREEN_BATT1:
                 desciption.setText("Battery Normal Status");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt1_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt1_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT2:
                 desciption.setText("Battery Charging Status");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_3_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt2_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT3:
                 desciption.setText("Common Display");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.eco_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT4:
                 desciption.setText("Battery Low Status & Abnormal");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt4_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt4_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
             case SCREEN_BATT5:
                 desciption.setText("Battery Maintenance screen");
-                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt5_screen));
+                screenPre.setImageDrawable(getResources().getDrawable(R.mipmap.batt5_screen_vnew));
                 screenPre.setVisibility(View.VISIBLE);
                 break;
         }
